@@ -1,4 +1,4 @@
-[WinSCP](https://winscp.net/) is a popular free file manager for Windows supporting SFTP, FTP, FTPS, SCP, S3, WebDAV and local-to-local file transfers. A powerful tool to enhance your productivity with a user-friendly interface and automation options like .NET assembly or batch file scripting. Use WinSCP also for file editing, directory synchronization and site management. WinSCP is open-source and well documented. It is available in English and many other languages.
+Darwin is an agentic fork of WinSCP for Windows supporting SFTP, FTP, FTPS, SCP, S3, WebDAV and local-to-local file transfers. A powerful agent, tool, and framework to enhance your productivity with a user-friendly interface and automation options like .NET assembly or batch file scripting. Use darwin also for file editing, directory synchronization and site management. Darwin is open-source and well documented. It is available in English and many other languages.
 
 To build WinSCP you need:
 - [Embarcadero C++Builder 11 Professional](https://www.embarcadero.com/products/cbuilder).
@@ -31,3 +31,4 @@ Directory structure:
 See the file [`license.txt`](license.txt) for the license conditions.
 
 [![NuGet](https://img.shields.io/nuget/v/WinSCP.svg)](https://www.nuget.org/packages/WinSCP/)
+
