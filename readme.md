@@ -6,9 +6,12 @@ Darwin is an agentic fork of WinSCP, designed to provide intelligent file transf
 
 - **Multi-Protocol Support**: SFTP, FTP, FTPS, SCP, S3, WebDAV, and local file operations
 - **.NET Assembly**: Comprehensive C# API for programmatic file operations
+- **FastAPI REST Server**: Production-ready API with OpenAPI documentation
+- **MCP Integration**: Model Context Protocol for seamless LLM tool calling
+- **Agent Swarm Framework**: Coordinate multiple agents for parallel operations
 - **Agentic Framework**: Designed for AI agent integration and automation
 - **File Operations**: Upload, download, synchronization, and directory management
-- **Future FastAPI Integration**: Planned REST API layer for tool calling and agent orchestration
+- **Interactive Examples**: Jupyter notebooks, Adaptive Cards, and agent scenarios
 
 ## Building Darwin
 
@@ -56,7 +59,21 @@ The build process:
 /dotnet             Darwin .NET assembly source code
                     Provides C# API for programmatic file operations
                     Key classes: Session, SessionOptions, TransferOptions
+
+/api                FastAPI server (NEW!)
+  /app              FastAPI application and routers
+    /models         Pydantic data models
+    /routers        API endpoint handlers (session, MCP, agents)
+    /services       Business logic (Darwin, MCP, Agent services)
+  /examples         Usage examples
+    /notebooks      Jupyter notebooks
+    /adaptive_cards Adaptive Card templates
+    /agent_scenarios Agent coordination examples
+  /tests            Test suite
+  /dashboard        Monitoring dashboard UI
                     
+/docs/wiki          Jekyll-based documentation wiki
+
 /libs               Third-party libraries (OpenSSL, libssh, expat, neon)
 /deployment         Inno Setup scripts for creating installer packages
 /translations       UI translations for multiple languages
@@ -96,18 +113,62 @@ using (Session session = new Session())
 }
 ```
 
-## Future Development: FastAPI Integration
+## FastAPI Server (New!)
 
-Darwin is planned to include a FastAPI-based REST API layer that will expose all file transfer operations as tool-callable endpoints for AI agent integration. This will enable:
+Darwin now includes a production-ready FastAPI server that exposes all file transfer operations as RESTful endpoints with AI agent capabilities:
 
-- RESTful endpoints for all file operations (upload, download, list, delete, sync)
-- OpenAPI/Swagger documentation for easy agent integration
-- Authentication and session management via API tokens
-- Streaming support for large file transfers
-- WebSocket support for real-time operation status
-- Tool calling schemas for LLM integration
+### Features
+- **RESTful API**: All file operations accessible via HTTP endpoints
+- **MCP Support**: Model Context Protocol integration for LLM tool calling
+- **Agent Swarms**: Coordinate multiple agents for parallel and distributed operations
+- **OpenAPI Documentation**: Auto-generated interactive API docs at `/docs`
+- **Session Management**: Secure session handling with configurable timeouts
+- **Adaptive Cards**: Pre-built UI templates for Microsoft Teams and bot integration
+- **Jupyter Integration**: Interactive notebooks with examples
+- **Dashboard**: Real-time monitoring UI for sessions and agents
 
-**Current Status**: The core file transfer functionality exists in the .NET assembly. FastAPI wrapper development is planned for future releases.
+### Quick Start
+
+```bash
+# Install dependencies
+cd api
+pip install -r requirements.txt
+
+# Configure environment
+cp .env.example .env
+
+# Start the server
+python -m uvicorn app.main:app --reload
+```
+
+Access the API at `http://localhost:8000` and documentation at `http://localhost:8000/docs`.
+
+### Example Usage
+
+```python
+import httpx
+
+client = httpx.Client(base_url="http://localhost:8000")
+
+# Create session
+response = client.post("/api/v1/session/create", json={
+    "options": {
+        "protocol": "sftp",
+        "hostname": "example.com",
+        "username": "user",
+        "password": "password"
+    }
+})
+session_id = response.json()["session_id"]
+
+# Upload file
+client.post(f"/api/v1/session/{session_id}/upload", json={
+    "local_path": "/path/to/file.txt",
+    "remote_path": "/remote/destination/"
+})
+```
+
+See the [API README](api/README.md) for detailed documentation.
 
 ## License
 
@@ -116,11 +177,12 @@ Darwin inherits the WinSCP license. See the file [`license.txt`](license.txt) fo
 ## Contributing
 
 Darwin is focused on becoming a premier agentic file transfer framework. Contributions are welcome, particularly in:
-- FastAPI integration layer development
-- Agent orchestration capabilities
-- API endpoint design for tool calling
+- Agent swarm coordination improvements
+- Additional MCP tool definitions
 - Performance optimizations
 - Protocol support enhancements
+- Dashboard UI enhancements
+- Example scenarios and use cases
 
 ## Links
 
