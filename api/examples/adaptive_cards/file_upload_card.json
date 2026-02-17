@@ -1,0 +1,132 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Darwin File Transfer",
+      "weight": "Bolder",
+      "size": "Large",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "Upload files to remote server",
+      "wrap": true,
+      "spacing": "Small"
+    },
+    {
+      "type": "Container",
+      "style": "emphasis",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "auto",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "📤",
+                  "size": "ExtraLarge"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Session ID",
+                  "weight": "Bolder",
+                  "size": "Small"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "${session_id}",
+                  "wrap": true,
+                  "size": "Small"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Protocol:",
+          "value": "${protocol}"
+        },
+        {
+          "title": "Server:",
+          "value": "${hostname}"
+        },
+        {
+          "title": "Status:",
+          "value": "${status}"
+        }
+      ]
+    },
+    {
+      "type": "Input.Text",
+      "id": "localPath",
+      "label": "Local File Path",
+      "placeholder": "C:\\path\\to\\file.txt",
+      "isRequired": true
+    },
+    {
+      "type": "Input.Text",
+      "id": "remotePath",
+      "label": "Remote Destination",
+      "placeholder": "/remote/path/",
+      "isRequired": true
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "transferMode",
+      "label": "Transfer Mode",
+      "value": "automatic",
+      "choices": [
+        {
+          "title": "Automatic",
+          "value": "automatic"
+        },
+        {
+          "title": "Binary",
+          "value": "binary"
+        },
+        {
+          "title": "Text",
+          "value": "text"
+        }
+      ]
+    },
+    {
+      "type": "Input.Toggle",
+      "id": "removeAfter",
+      "label": "Remove local file after upload",
+      "value": "false"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Upload",
+      "data": {
+        "action": "upload",
+        "session_id": "${session_id}"
+      }
+    },
+    {
+      "type": "Action.OpenUrl",
+      "title": "View Status",
+      "url": "${api_url}/session/${session_id}/status"
+    }
+  ]
+}
