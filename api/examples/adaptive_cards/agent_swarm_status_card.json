@@ -1,0 +1,245 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Agent Swarm Status",
+      "weight": "Bolder",
+      "size": "Large",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "Real-time status of coordinated agents",
+      "wrap": true,
+      "spacing": "Small",
+      "isSubtle": true
+    },
+    {
+      "type": "Container",
+      "style": "emphasis",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "auto",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "🤖",
+                  "size": "ExtraLarge"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Coordination ID",
+                  "weight": "Bolder",
+                  "size": "Small"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "${coordination_id}",
+                  "wrap": true,
+                  "size": "Small"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Status:",
+          "value": "${status}"
+        },
+        {
+          "title": "Active Agents:",
+          "value": "${agents_assigned}"
+        },
+        {
+          "title": "Completed Tasks:",
+          "value": "${tasks_completed}"
+        },
+        {
+          "title": "Failed Tasks:",
+          "value": "${tasks_failed}"
+        },
+        {
+          "title": "Started:",
+          "value": "${started_at}"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "Agent Details",
+      "weight": "Bolder",
+      "spacing": "Medium"
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "30",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Agent Name",
+                  "weight": "Bolder",
+                  "size": "Small"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "20",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Status",
+                  "weight": "Bolder",
+                  "size": "Small"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "25",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Tasks",
+                  "weight": "Bolder",
+                  "size": "Small"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "25",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Last Activity",
+                  "weight": "Bolder",
+                  "size": "Small"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "$data": "${agents}",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "separator": true,
+          "spacing": "Small",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "30",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "${name}",
+                  "size": "Small",
+                  "wrap": true
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "20",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "${status}",
+                  "size": "Small",
+                  "color": "${if(status == 'working', 'Good', if(status == 'failed', 'Attention', 'Default'))}"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "25",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "${operations_completed}",
+                  "size": "Small"
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "25",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "${last_activity}",
+                  "size": "Small",
+                  "isSubtle": true
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "Progress",
+      "weight": "Bolder",
+      "spacing": "Medium"
+    },
+    {
+      "type": "ProgressBar",
+      "title": "Overall Progress",
+      "value": "${progress_percentage}"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Refresh",
+      "data": {
+        "action": "refresh",
+        "coordination_id": "${coordination_id}"
+      }
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Stop All",
+      "data": {
+        "action": "stop",
+        "coordination_id": "${coordination_id}"
+      },
+      "style": "destructive"
+    },
+    {
+      "type": "Action.OpenUrl",
+      "title": "View Logs",
+      "url": "${api_url}/agents/swarm/${coordination_id}/logs"
+    }
+  ]
+}

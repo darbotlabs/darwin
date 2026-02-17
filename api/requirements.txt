@@ -1,0 +1,48 @@
+# Darwin FastAPI Server Dependencies
+
+# Core FastAPI
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# .NET Interop
+pythonnet>=3.0.3
+
+# MCP (Model Context Protocol)
+mcp>=0.1.0
+
+# Agent Frameworks
+autogen-agentchat>=0.2.0
+semantic-kernel>=0.9.0
+
+# Additional utilities
+httpx>=0.26.0
+python-multipart>=0.0.6
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-dotenv>=1.0.0
+
+# WebSocket support
+websockets>=12.0
+
+# Adaptive Cards
+adaptivecards>=1.2.3
+
+# Jupyter integration
+jupyter>=1.0.0
+nbconvert>=7.14.0
+jupyterlab>=4.0.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+httpx>=0.26.0
+
+# Documentation
+mkdocs>=1.5.0
+mkdocs-material>=9.5.0
+
+# Monitoring
+prometheus-client>=0.19.0
